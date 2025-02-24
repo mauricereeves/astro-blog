@@ -1,15 +1,15 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import '../styles/global.css';
+import "../styles/global.css";
 
 const pageTitle = "About Me";
 
 const identity = {
-    firstName: "Mo",
-    country: "USA",
-    occupation: "Software Engineer",
-    hobbies: ["woodworking","gardening","birdwatching","hiking"],
+  firstName: "Mo",
+  country: "USA",
+  occupation: "Software Engineer",
+  hobbies: ["woodworking", "gardening", "birdwatching", "hiking"],
 };
 
 const skills = ["HTML", "CSS", "TypeScript", "React", "SQL"];
@@ -27,15 +27,15 @@ const skillColor = "navy";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
-    <style define:vars={{skillColor}}>
-        h1 {
-            color: purple;
-            font-size: 4rem;
-        }
-        .skill {
-            color: var(--skillColor);
-            font-weight: bold;
-        }
+    <style define:vars={{ skillColor }}>
+      h1 {
+        color: purple;
+        font-size: 4rem;
+      }
+      .skill {
+        color: var(--skillColor);
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
@@ -50,18 +50,31 @@ const skillColor = "navy";
     <p>This site will update as I complete more of the tutorial.</p>
     <p>Here are a few facts about me:</p>
     <ul>
-        <li>My name is {identity.firstName}</li>
-        <li>I live in {identity.country} and I work as a {identity.occupation}</li>
-        {identity.hobbies.length > 2 &&
-            <li>My hobbies include {identity.hobbies.slice(0, -1).join(", ")}, and {identity.hobbies.slice(-1)}</li>
-        }
+      <li>My name is {identity.firstName}</li>
+      <li>
+        I live in {identity.country} and I work as a {identity.occupation}
+      </li>
+      {
+        identity.hobbies.length > 2 && (
+          <li>
+            My hobbies include {identity.hobbies.slice(0, -1).join(", ")}, and{" "}
+            {identity.hobbies.slice(-1)}
+          </li>
+        )
+      }
     </ul>
     <p>My skills are:</p>
     <ul>
-        {skills.map((skill) => <li class="skill">{skill}</li>)}
+      {skills.map((skill) => <li class="skill">{skill}</li>)}
     </ul>
     {happy && <p>I am happy to be learning Astro!</p>}
-    {finished ? <p>I have finished the tutorial!</p> : <p>I have {goal} more days to finish.</p>}
+    {
+      finished ? (
+        <p>I have finished the tutorial!</p>
+      ) : (
+        <p>I have {goal} more days to finish.</p>
+      )
+    }
     <Footer />
-</body>
+  </body>
 </html>
