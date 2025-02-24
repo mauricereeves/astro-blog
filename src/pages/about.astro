@@ -1,7 +1,5 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle = "About Me";
 
@@ -20,29 +18,8 @@ const goal = 3;
 const skillColor = "navy";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
-    <style define:vars={{ skillColor }}>
-      h1 {
-        color: purple;
-        font-size: 4rem;
-      }
-      .skill {
-        color: var(--skillColor);
-        font-weight: bold;
-      }
-    </style>
-  </head>
-  <body>
-    <Header />
-    <h1>{pageTitle}</h1>
+<BaseLayout pageTitle={pageTitle}>
     <h2>... and my new Astro site!</h2>
-
     <p>
       I am working through Astro's introductory tutorial. This is the second
       page on my website and I'm building it myself.
@@ -75,6 +52,4 @@ const skillColor = "navy";
         <p>I have {goal} more days to finish.</p>
       )
     }
-    <Footer />
-  </body>
-</html>
+</BaseLayout>
