@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import BlogPost from "../components/BlogPost.astro";
 import "../styles/global.css";
 
 const allPosts = Object.values(import.meta.glob('./posts/*.md', {eager: true}))
@@ -21,7 +22,9 @@ const pageTitle = "My Astro Learning Blog";
 
     <p class="mb-4">This is where I will post about my journey learning Astro</p>
     <ul>
-      {allPosts.map((post: any) => <li><a href={post.url} class="hover:text-blue-600">{post.frontmatter.title}</a></li>)}
+      {allPosts.map((post: any) => (
+        <BlogPost postUrl={post.url} postTitle={post.frontmatter.title} />
+      ))}
     </ul>
     <Footer />
   </body>

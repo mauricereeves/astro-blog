@@ -1,0 +1,7 @@
+---
+// get our props passed in from the parent component
+const { postUrl, postTitle } = Astro.props;
+---
+<li>
+    <a href={postUrl} class="hover:text-blue-600">{postTitle}</a>
+</li>
