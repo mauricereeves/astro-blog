@@ -19,37 +19,39 @@ const skillColor = "navy";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-    <h2>... and my new Astro site!</h2>
-    <p>
-      I am working through Astro's introductory tutorial. This is the second
-      page on my website and I'm building it myself.
-    </p>
-    <p>This site will update as I complete more of the tutorial.</p>
-    <p>Here are a few facts about me:</p>
-    <ul>
-      <li>My name is {identity.firstName}</li>
-      <li>
-        I live in {identity.country} and I work as a {identity.occupation}
-      </li>
-      {
-        identity.hobbies.length > 2 && (
-          <li>
-            My hobbies include {identity.hobbies.slice(0, -1).join(", ")}, and{" "}
-            {identity.hobbies.slice(-1)}
-          </li>
-        )
-      }
-    </ul>
-    <p>My skills are:</p>
-    <ul>
-      {skills.map((skill) => <li class="skill">{skill}</li>)}
-    </ul>
-    {happy && <p>I am happy to be learning Astro!</p>}
+  <h2 class="mt-2 mb-2 text-4xl font-bold dark:text-white">
+    ... and my new Astro site!
+  </h2>
+  <p>
+    I am working through Astro's introductory tutorial. This is the second page
+    on my website and I'm building it myself.
+  </p>
+  <p>This site will update as I complete more of the tutorial.</p>
+  <p>Here are a few facts about me:</p>
+  <ul>
+    <li>My name is {identity.firstName}</li>
+    <li>
+      I live in {identity.country} and I work as a {identity.occupation}
+    </li>
     {
-      finished ? (
-        <p>I have finished the tutorial!</p>
-      ) : (
-        <p>I have {goal} more days to finish.</p>
+      identity.hobbies.length > 2 && (
+        <li>
+          My hobbies include {identity.hobbies.slice(0, -1).join(", ")}, and{" "}
+          {identity.hobbies.slice(-1)}
+        </li>
       )
     }
+  </ul>
+  <p>My skills are:</p>
+  <ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
+  {happy && <p>I am happy to be learning Astro!</p>}
+  {
+    finished ? (
+      <p>I have finished the tutorial!</p>
+    ) : (
+      <p>I have {goal} more days to finish.</p>
+    )
+  }
 </BaseLayout>
