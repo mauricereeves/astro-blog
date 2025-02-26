@@ -1,0 +1,47 @@
+---
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+
+// let's get our static paths for the tags
+export const getStaticPaths = (() => {
+  // get all of our posts to work with
+  const allPosts = Object.values(
+    import.meta.glob("../posts/*.md", { eager: true }),
+  );
+  // these are our unique tags
+  const uniqueTags = [
+    ...new Set(allPosts.flatMap((post: any) => post.frontmatter.tags)),
+  ];
+  // now maps over the unique tags and returns the
+  // params and props and prefilter our posts so they
+  // match the tag automatically
+  return uniqueTags.map((tag: string) => {
+    const filteredPosts = allPosts.filter((post: any) =>
+      post.frontmatter.tags?.includes(tag),
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout pageTitle={`Tag: ${tag}`}>
+  <p>Posts tagged with <em>{tag}</em></p>
+  <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+    {
+      posts.map((post: any) => (
+        <BlogPost
+          postUrl={post.url}
+          postTitle={post.frontmatter.title}
+          postDescription={post.frontmatter.description}
+        />
+      ))
+    }
+  </div>
+</BaseLayout>
