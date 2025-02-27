@@ -1,31 +1,30 @@
 ---
+import { getCollection } from "astro:content";
 import type { GetStaticPaths } from "astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogPost from "../../components/BlogPost.astro";
 
 // let's get our static paths for the tags
-export const getStaticPaths = (() => {
+export async function getStaticPaths() {
   // get all of our posts to work with
-  const allPosts = Object.values(
-    import.meta.glob("../posts/*.md", { eager: true }),
-  );
+  const allPosts = await getCollection("blog");
   // these are our unique tags
   const uniqueTags = [
-    ...new Set(allPosts.flatMap((post: any) => post.frontmatter.tags)),
+    ...new Set(allPosts.flatMap((post: any) => post.data.tags)),
   ];
   // now maps over the unique tags and returns the
   // params and props and prefilter our posts so they
   // match the tag automatically
   return uniqueTags.map((tag: string) => {
     const filteredPosts = allPosts.filter((post: any) =>
-      post.frontmatter.tags?.includes(tag),
+      post.data.tags?.includes(tag),
     );
     return {
       params: { tag },
       props: { posts: filteredPosts },
     };
   });
-}) satisfies GetStaticPaths;
+}
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
@@ -37,9 +36,9 @@ const { posts } = Astro.props;
     {
       posts.map((post: any) => (
         <BlogPost
-          postUrl={post.url}
-          postTitle={post.frontmatter.title}
-          postDescription={post.frontmatter.description}
+          postUrl={`/posts/${post.id}`}
+          postTitle={post.data.title}
+          postDescription={post.data.description}
         />
       ))
     }
